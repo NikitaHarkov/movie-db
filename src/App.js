@@ -1,6 +1,5 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import { useGlobalContext } from './context';
 
 import Home from './Home';
 import Movie from './SingleMovie';
