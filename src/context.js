@@ -15,7 +15,6 @@ const AppProvider = ({ children }) => {
     try {
       const response = await fetch(url);
       const data = await response.json();
-      console.log(data);
       if (data.Response === 'True') {
         setMovies(data.Search);
         setError({ show: false, msg: '' });
@@ -33,7 +32,7 @@ const AppProvider = ({ children }) => {
   }, [query]);
 
   return (
-    <AppContext.Provider value={(isLoading, movies, query, error, setQuery)}>
+    <AppContext.Provider value={{ isLoading, movies, query, error, setQuery }}>
       {children}
     </AppContext.Provider>
   );
