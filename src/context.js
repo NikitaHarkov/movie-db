@@ -1,12 +1,42 @@
 import React, { useState, useContext, useEffect } from 'react';
 
 export const API_ENDPOINT = `https://www.omdbapi.com/?apikey=${process.env.REACT_APP_MOVIE_API_KEY}`;
-console.log(API_ENDPOINT);
 
 const AppContext = React.createContext();
 
 const AppProvider = ({ children }) => {
-  return <AppContext.Provider value='hello'>{children}</AppContext.Provider>;
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState({ show: false, msg: '' });
+  const [movies, setMovies] = useState([]);
+  const [query, setQuery] = useState('harry');
+
+  const fetchMovies = async url => {
+    setIsLoading(true);
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+      console.log(data);
+      if (data.Response === 'True') {
+        setMovies(data.Search);
+        setError({ show: false, msg: '' });
+      } else {
+        setError({ show: true, msg: data.Error });
+      }
+    } catch (err) {
+      console.log(err);
+    }
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    fetchMovies(`${API_ENDPOINT}&s=${query}`);
+  }, [query]);
+
+  return (
+    <AppContext.Provider value={(isLoading, movies, query, error, setQuery)}>
+      {children}
+    </AppContext.Provider>
+  );
 };
 
 export const useGlobalContext = () => {
