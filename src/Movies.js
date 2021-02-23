@@ -9,7 +9,7 @@ const Movies = () => {
   const { movies, isLoading } = useGlobalContext();
 
   if (isLoading) {
-    return <div className='loading'>Loading...</div>;
+    return <div className='loading'></div>;
   }
   return (
     <section className='movies'>
