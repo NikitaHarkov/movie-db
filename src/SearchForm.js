@@ -10,7 +10,7 @@ const SearchForm = () => {
         e.preventDefault();
       }}
     >
-      <h2>seacrh movies</h2>
+      <h2>search movies</h2>
       <input
         type='text'
         className='form-input'
